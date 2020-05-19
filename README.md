@@ -2,7 +2,7 @@
 
 Video, Torrent, Audio streaming application. It is using MongoDB as primary database, HLS video conversion system for uploaded video. Webtorrent library is used for torrent downloading and streaming. This program uses Socket programming in uploading videos. 
 
-## Available Scripts
+## Available Scripts - Backend
 
 Scripts for server:
 
@@ -19,7 +19,7 @@ Builds the app for production to the `build` folder.
 Feature not available now, add in future!
 
 
-## Available Scripts
+## Available Scripts - Frontend
 
 Scripts for client:
 
@@ -40,6 +40,6 @@ Builds the app for production to the `build` folder.<br />
 
 New features are adding soon,
 
-### Audio Streaming 
+#### 1. Audio Streaming 
 
->>>>>>> commit - uploading project to github
+
