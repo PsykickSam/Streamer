@@ -1,7 +1,5 @@
 # Streamer
-<<<<<<< HEAD
-Streamer is streaming application with the functionalities like 'Video', 'Audio', 'Torrent' and some other features.
-=======
+
 Video, Torrent, Audio streaming application. It is using MongoDB as primary database, HLS video conversion system for uploaded video. Webtorrent library is used for torrent downloading and streaming. This program uses Socket programming in uploading videos. 
 
 ## Available Scripts
