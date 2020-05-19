@@ -1,0 +1,35 @@
+Project/server/storage/thumbnail/
+Project/server/storage/torrent/
+Project/server/storage/video/
+
+# lock
+Project/server/package-lock.json
+Project/client/package-lock.json
+Project/client/yarn.lock
+
+# dependencies
+Project/server/node_modules/
+Project/client/node_modules/
+Project/client/.pnp
+Project/client/.pnp.js
+
+# testing
+Project/client/coverage
+
+# production
+Project/server/build/
+Project/client/build/
+
+# extra
+Project/server/__temp/
+
+# misc
+Project/client/.DS_Store
+Project/client/.env.local
+Project/client/.env.development.local
+Project/client/.env.test.local
+Project/client/.env.production.local
+Project/client/npm-debug.log*
+Project/client/yarn-debug.log*
+Project/client/yarn-error.log*
+
