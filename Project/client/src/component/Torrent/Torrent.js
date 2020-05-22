@@ -67,12 +67,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const pathTreeBuilder = (files) => {
+const pathTreeBuilder = (torrent, setPageState) => {
+  const files = torrent.files;
   const pathsList = {};
   const filesList = {};
   let counter = 0;
 
-  files.forEach((file) => {
+  files.forEach((file, fileIndex) => {
     const splitPath = file.path.split("/");
     const folders = splitPath.slice(0, -1);
     const foldersString = splitPath.slice(0, -1).join(",");
@@ -83,7 +84,7 @@ const pathTreeBuilder = (files) => {
       filesList[fileFolder] = [];
     }
 
-    filesList[fileFolder].push(fileName);
+    filesList[fileFolder].push({ fileName, fullPath: file.path, fileId: file.id, fileIndex });
 
     if (
       !Object.values(pathsList)
@@ -109,7 +110,7 @@ const pathTreeBuilder = (files) => {
   let lastChildIndex = 0;
   let lastChildParent = "";
 
-  pathsListReversed.map((sortedPath, index) => {
+  pathsListReversed.forEach((sortedPath, index) => {
     if (index === 0 || lastChildIndex === sortedPath.child) {
       finalList.push(
         <StyledTreeItem
@@ -118,16 +119,21 @@ const pathTreeBuilder = (files) => {
           label={sortedPath.name}
         >
           {Object.keys(filesList).includes(sortedPath.name)
-            ? filesList[sortedPath.name].map((fileName, i) => {
-                const fileType = fileName.split(".").slice(-1).join("");
+            ? filesList[sortedPath.name].map((singleFile, i) => {
+                const fileType = singleFile.fileName.split(".").slice(-1).join("");
                 const icon = ["mp4", "mkv", "avi"].includes(fileType) ? <IconMovie /> : <IconFile />;
                 return (
                   <StyledTreeItem
                     key={Date.now() * Math.random() * Math.random() * (i + 1)}
                     nodeId={`${Date.now() * Math.random()}`}
-                    style={{ color: "gray" }}
-                    label={fileName}
+                    label={singleFile.fileName}
                     icon={icon}
+                    onClick={() => {
+                      console.log(singleFile.fullPath, singleFile.fileId, singleFile.fileIndex);
+                      setPageState({
+                        playUrl: `http://localhost:4000/api/torrent/render/${torrent.id}/${singleFile.fileIndex}`,
+                      });
+                    }}
                   />
                 );
               })
@@ -139,15 +145,21 @@ const pathTreeBuilder = (files) => {
         <StyledTreeItem key={Date.now()} nodeId={`${Date.now() * Math.random()}`} label={lastChildParent}>
           {finalList}
           {Object.keys(filesList).includes(sortedPath.name)
-            ? filesList[sortedPath.name].map((fileName, i) => {
-                const fileType = fileName.split(".").slice(-1).join("");
+            ? filesList[sortedPath.name].map((singleFile, i) => {
+                const fileType = singleFile.fileName.split(".").slice(-1).join("");
                 const icon = ["mp4", "mkv", "avi"].includes(fileType) ? <IconMovie /> : <IconFile />;
                 return (
                   <StyledTreeItem
                     key={Date.now() * Math.random() * Math.random() * (i + 1)}
                     nodeId={`${Date.now() * Math.random()}`}
-                    label={fileName}
+                    label={singleFile.fileName}
                     icon={icon}
+                    onClick={() => {
+                      console.log(singleFile.fullPath, singleFile.fileId, singleFile.fileIndex);
+                      setPageState({
+                        playUrl: `http://localhost:4000/api/torrent/render/${torrent.id}/${singleFile.fileIndex}`,
+                      });
+                    }}
                   />
                 );
               })
@@ -167,10 +179,12 @@ const Torrent = ({ routeLinks }) => {
   const classes = useStyles();
   const { state, saveTorrent, downloadTorrent } = useContext(Contexts.TorrentContext);
   const [pageState, setPageState] = useState({
+    playUrl: "",
     isDownload: false,
     magnetUri:
+      // "magnet:?xt=urn:btih:94E05039DEEDBED65CCC8656A55A3A2B2BD256A6&dn=Ta%20Ra%20Rum%20Pum%20%282007%29%20720p%20HDRip%20x264%20AAC%20Link2Download&tr=http%3a%2f%2fsiena.crazyhd.com%2fannounce.php%3fpid%3d83dea680119f42ecf9a0858fc48789e6&tr=http%3a%2f%2fz.crazyhd.com%3a2710%2f83dea680119f42ecf9a0858fc48789e6%2fannounce",
+      // "magnet:?xt=urn:btih:a52e9fca917f54a6c73be204f107630bedd1617e&dn=scoob.2020.1080p.web.dl.dd5.1.hevc.x265.rmteam.mkv&tr=http%3a%2f%2fsiena.crazyhd.com%2fannounce.php%3fpid%3d83dea680119f42ecf9a0858fc48789e6&tr=http%3a%2f%2fz.crazyhd.com%3a2710%2f83dea680119f42ecf9a0858fc48789e6%2fannounce"
       "magnet:?xt=urn:btih:BC126D4DA14AFAD1384B47BC4F0F34868930D5D3&dn=%5bFreeCourseLab.com%5d%20Udemy%20-%20Projects%20in%20Machine%20Learning%20%20Beginner%20To%20Professional&tr=http%3a%2f%2f0d.kebhana.mx%3a80%2fannounce&tr=udp%3a%2f%2ftw.opentracker.ga%3a36920%2fannounce&tr=udp%3a%2f%2ftemp1.opentracker.gq%3a6969%2fannounce&tr=udp%3a%2f%2ftemp2.opentracker.gq%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.torrent.eu.org%3a451%2fannounce&tr=http%3a%2f%2ftorrent.nwps.ws%3a80%2fannounce&tr=udp%3a%2f%2fexplodie.org%3a6969%2fannounce&tr=https%3a%2f%2fopentracker.xyz%3a443%2fannounce&tr=https%3a%2f%2ft.quic.ws%3a443%2fannounce&tr=https%3a%2f%2ftracker.fastdownload.xyz%3a443%2fannounce&tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce&tr=udp%3a%2f%2fipv4.tracker.harry.lu%3a80%2fannounce&tr=udp%3a%2f%2ftracker.coppersurfer.tk%3a6969%2fannounce&tr=udp%3a%2f%2ftracker.justseed.it%3a1337%2fannounce&tr=udp%3a%2f%2fopen.demonii.si%3a1337%2fannounce",
-    // "magnet:?xt=urn:btih:94E05039DEEDBED65CCC8656A55A3A2B2BD256A6&dn=Ta%20Ra%20Rum%20Pum%20%282007%29%20720p%20HDRip%20x264%20AAC%20Link2Download&tr=http%3a%2f%2fsiena.crazyhd.com%2fannounce.php%3fpid%3d83dea680119f42ecf9a0858fc48789e6&tr=http%3a%2f%2fz.crazyhd.com%3a2710%2f83dea680119f42ecf9a0858fc48789e6%2fannounce"
   });
 
   useEffect(() => {}, []);
@@ -191,7 +205,7 @@ const Torrent = ({ routeLinks }) => {
                   {/* <Tooltip title=""></Tooltip> */}
                   {Object.keys(state.torrent).length > 0 ? (
                     <StyledTreeItem nodeId="1" label="/">
-                      {pathTreeBuilder(state.torrent.files)}
+                      {pathTreeBuilder(state.torrent, setPageState)}
                     </StyledTreeItem>
                   ) : (
                     "No files to load"
@@ -201,7 +215,7 @@ const Torrent = ({ routeLinks }) => {
               <Grid item xs={12} md={1} />
               <Grid item xs={12} md={8}>
                 <ReactPlayer
-                  url={""}
+                  url={pageState.playUrl}
                   controls={true}
                   muted
                   className={(classes.player, "react-player-css")}
@@ -235,8 +249,8 @@ const Torrent = ({ routeLinks }) => {
                         color="default"
                         className={classes.button}
                         onClick={() => {
-                          saveTorrent(pageState.magnetUri, () => {
-                            setPageState({ isDownload: true });
+                          saveTorrent(pageState.magnetUri, (param) => {
+                            if (!param.error) setPageState({ isDownload: true });
                           });
                         }}
                       >
@@ -250,9 +264,7 @@ const Torrent = ({ routeLinks }) => {
                         color="default"
                         className={classes.button}
                         disabled={!pageState.isDownload}
-                        onClick={() => {
-                          downloadTorrent(state.torrent.id);
-                        }}
+                        onClick={() => {}}
                       >
                         Download
                       </Button>

@@ -8,15 +8,36 @@ const _apidef = {
         post: {
           param: null,
           data: ["magnetUri"],
-          body: [["api", "->", "id", "magnet", "name", "files"]],
+          body: [
+            "code",
+            "status",
+            "error",
+            "message",
+            "data",
+            "-",
+            "torrent",
+            "-",
+            "id",
+            "magnet",
+            "name",
+            "files",
+            "-",
+            "-",
+          ],
           method: "post",
         },
       },
     },
     video: {
-      api_videos: { get: { param: null, data: null, body: null, method: "get" } },
-      api_video: { get: { param: ["id"], data: null, body: null, method: "get" } },
-      api_video_render: { get: { param: ["link"], data: null, body: null, method: "get" } },
+      api_videos: {
+        get: { param: null, data: null, body: ["code", "status", "error", "message", "data"], method: "get" },
+      },
+      api_video: {
+        get: { param: ["id"], data: null, body: ["code", "status", "error", "message", "data"], method: "get" },
+      },
+      api_video_render: {
+        get: { param: ["link"], data: null, body: ["code", "status", "error", "message", "data"], method: "get" },
+      },
     },
   },
 };

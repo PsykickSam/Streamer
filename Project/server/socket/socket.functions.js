@@ -19,8 +19,8 @@ module.exports.videoMoveToDir = (dir_Video, dir_TempVideoData, dir_VideoData, ca
   } catch (ex) {
     if (callback) callback(ex);
   }
-}; 
- 
+};
+
 module.exports.videoThumbnailGenerate = (
   dir_VideoData,
   dir_Thumbnail,
@@ -118,7 +118,7 @@ module.exports.adaptiveVideoGenerate = (
           log.info("HLS conversion done: " + result.join("p, ") + "p");
 
           if (result.includes(vP)) {
-            const hls_VideoData = helper.HLSPlaylistBuilder.init(fs, dir_Video).builder(hlsPlaylist).build();
+            const hls_VideoData = helper.hlsPlaylistBuilder.execute(fs, dir_Video).builder(hlsPlaylist).build();
             if (!hls_VideoData) {
               log.error(`Failed to create HLS Content: Folder: ${dir_Video}`);
             } else {

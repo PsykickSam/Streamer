@@ -35,4 +35,8 @@ class HLSPlaylistBuilder {
   }
 }
 
-module.exports = HLSPlaylistBuilder;
+module.exports = {
+  execute: (fs, dir_Video, name = null) => {
+    return new HLSPlaylistBuilder.HLSPlaylistBuilder.init(fs, dir_Video, name);
+  },
+};

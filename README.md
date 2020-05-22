@@ -8,7 +8,7 @@ Scripts for server:
 
 ### `npm run rock`
 
-To run the server at [http://localhost:4000](localhost:4000) to run the API and view in browser
+To run the server at [localhost:4000](http://localhost:4000) to run the API and view in browser
 
 ### `npm build`
 
@@ -26,7 +26,7 @@ Scripts for client:
 ### `npm start`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npm test`
 

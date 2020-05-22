@@ -1,0 +1,7 @@
+{
+  "verbose": false,
+  "events": {
+    "restart": "echo NODEMON RESTARTED && sleep 5 && PID=`sudo lsof -i :4000 | awk '{if ($1 == \"node\") print $2;}'` && echo $PID && sudo kill -9 $PID && echo PID $PID && unset PID"
+  },
+  "delay": 2000
+}

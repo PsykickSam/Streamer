@@ -7,7 +7,7 @@ import Log from "../../Log";
 const saveTorrent = (dispatch) => async (magnetUri, callback = null) => {
   Log.action("saveTorrent");
 
-  const status = { error: false };
+  const callbackParams = { error: false, data: null };
 
   try {
     Log.info("Saving torrent - Torrent Magnet");
@@ -15,7 +15,11 @@ const saveTorrent = (dispatch) => async (magnetUri, callback = null) => {
     Log.info("Saved torrent - Torrent Magnet");
 
     Log.defination.show(Log.defination.def.api.torrent.api_torrent.post);
-    const payload = response.data.api;
+    const fetched = response.data;
+    const payload = fetched.error ? {} : fetched.data.torrent;
+
+    callbackParams.error = false;
+    callbackParams.data = null;
 
     Log.info("Ready to dispatch");
     dispatch({
@@ -23,22 +27,27 @@ const saveTorrent = (dispatch) => async (magnetUri, callback = null) => {
       payload,
     });
   } catch (err) {
-    Log.multi("Fetching videos error!", err.message).Error();
-    status.error = true;
+    Log.multi("Fetching torrent error!", err.message).Error();
+    callbackParams.error = true;
+    callbackParams.data = null;
   }
 
-  if (callback) callback(status);
+  if (callback) callback(callbackParams);
 };
 
 const downloadTorrent = (dispatch) => async (torrentDatabaseId, callback = null) => {
   Log.action("downloadTorrent");
-
-  const status = { error: false };
+  const callbackParams = { error: false, data: null };
 
   try {
     Log.info("Downloading torrent - Sending Torrent Database Id");
-    const response = await api.get(`api/torrent/${torrentDatabaseId}`);
+    const response = await api.get(`api//torrent/${torrentDatabaseId}`);
     Log.info("Downloaded torrent - Sending Torrent Database Id");
+
+    console.log(response.data);
+
+    callbackParams.error = false;
+    callbackParams.data = null;
 
     Log.defination.show(Log.defination.def.api.torrent.api_torrent.get);
     const payload = "Torrent download started";
@@ -50,10 +59,11 @@ const downloadTorrent = (dispatch) => async (torrentDatabaseId, callback = null)
     });
   } catch (err) {
     Log.multi("Fetching torrents error!", err.message).Error();
-    status.error = true;
+    callbackParams.error = true;
+    callbackParams.data = null;
   }
 
-  if (callback) callback(status);
+  if (callback) callback(callbackParams);
 };
 
 // Register Action
