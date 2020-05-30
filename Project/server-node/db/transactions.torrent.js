@@ -28,7 +28,7 @@ module.exports.fetch = {
   },
   byId: async (id) => {
     log.info("Torrent data fetch from database - by ID");
-    const torrent = await TorrentModel.find({ _id: id });
+    const torrent = await TorrentModel.findById(id);
     log.info("Torrent data fetched from database - by ID");
     return torrent;
   },

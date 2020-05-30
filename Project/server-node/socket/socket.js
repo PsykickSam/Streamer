@@ -1,9 +1,9 @@
-const { fs, config, log } = require("../required");
+const { fs, helper, config, log } = require("../required");
 const { db } = require("../required.depend");
 const socketFunctions = require("./socket.functions");
 
 const main = (io) => {
-  const locations = config.constants().file.locations.child;
+  const locations = config.file().locations.child;
   const Files = [];
 
   io.sockets.on("connection", (socket) => {
@@ -27,13 +27,13 @@ const main = (io) => {
         Name: Name,
         Extension: Extension.Ext,
         FullName: Name + Extension.Ext,
-        TempName: config.tempn_generator(Name).encode(),
+        TempName: helper.functionHelper.tempn_generator(Name).encode(),
         FileSize: Size,
         Video: "",
         Downloaded: 0,
       };
 
-      const tempVideo = config.path_binder(locations.video.string, locations.temp.source) + Files[Id].TempName;
+      const tempVideo = helper.functionHelper.path_binder(locations.video.string, locations.temp.source) + Files[Id].TempName;
       let place = 0;
       let percent = 0;
 
@@ -81,14 +81,14 @@ const main = (io) => {
             return;
           }
 
-          const dir_GeneratedName = config.dirn_generator(Files[Id].Name);
+          const dir_GeneratedName = helper.functionHelper.dirn_generator(Files[Id].Name);
           const dir_TempVideoData =
-            config.path_binder(locations.video.string, locations.temp.source) + Files[Id].TempName;
-          const dir_Video = config.path_binder(locations.video.string, locations.video.videos + dir_GeneratedName);
+          helper.functionHelper.path_binder(locations.video.string, locations.temp.source) + Files[Id].TempName;
+          const dir_Video = helper.functionHelper.path_binder(locations.video.string, locations.video.videos + dir_GeneratedName);
           const dir_VideoData = dir_Video + Files[Id]["FullName"];
           const dir_Thumbnail =
-            config.path_binder(locations.thumbnail.string, locations.thumbnail.thumbnails) + dir_GeneratedName;
-          const dir_TempThumbnail = config.path_binder(locations.thumbnail.string, locations.temp.source);
+          helper.functionHelper.path_binder(locations.thumbnail.string, locations.thumbnail.thumbnails) + dir_GeneratedName;
+          const dir_TempThumbnail = helper.functionHelper.path_binder(locations.thumbnail.string, locations.temp.source);
           const name_Thumbnail = Files[Id].Name + ".png";
 
           socketFunctions.videoMoveToDir(dir_Video, dir_TempVideoData, dir_VideoData, (err) => {

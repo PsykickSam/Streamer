@@ -1,8 +1,13 @@
 class FunctionHelper {
+  constructor(config, path) {
+    this.config = config;
+    this.path = path;
+  }
+
   // Bind path with target
   path_binder(str, target) {
-    const sroot = this.constants().file.locations.root;
-    const schild = this.constants().file.locations.child;
+    const sroot = this.config.file().locations.root;
+    const schild = this.config.file().locations.child;
 
     if (schild.hasOwnProperty(str) === false) {
       return "";
@@ -10,7 +15,7 @@ class FunctionHelper {
 
     const storage = sroot.storage.source(true);
     const source = schild[str].source;
-    const bind = this.b2fs_converter(path.join(this.constants().dir.root, storage, source, target, "/"));
+    const bind = this.b2fs_converter(this.path.join(this.config.directory().root, storage, source, target, "/"));
 
     return bind;
   }
@@ -21,7 +26,7 @@ class FunctionHelper {
 
     // Path to Link converter
     const slash = process.platform === "win32" || path.includes("\\") ? "\\" : "/";
-    const sroot = this.constants().file.locations.root;
+    const sroot = this.config.file().locations.root;
     const storage = sroot.storage.source(false);
     const actualPath = [];
     const splitPath = path.split(slash);
@@ -82,4 +87,4 @@ class FunctionHelper {
   }
 }
 
-module.exports = new FunctionHelper();
+module.exports = (config, path) => new FunctionHelper(config, path);

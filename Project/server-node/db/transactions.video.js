@@ -1,4 +1,4 @@
-const { fs, config, log } = require("../required");
+const { fs, helper, config, log } = require("../required");
 const { VideoModel } = require("../model");
 
 module.exports.fetch = async () => {
@@ -32,7 +32,7 @@ module.exports.save = async (
   hls_VideoData
 ) => {
   log.info("Video data saving to database");
-  const server_url = config.constants().server.bind();
+  const server_url = config.server().bind();
   const dir_ThumbnailData = dir_Thumbnail + "/" + name_Thumbnail;
   const fields = config.database().structure.model.videos._fields;
 
@@ -42,10 +42,10 @@ module.exports.save = async (
   fields.views = "0"; // TODO: view counter
   fields.user = User;
   fields.video_dir = dir_VideoData;
-  fields.video_link = config.p2l_converter(server_url, dir_VideoData);
-  fields.video_hls_link = hls_VideoData != null ? config.p2l_converter(server_url, hls_VideoData) : null;
+  fields.video_link = helper.functionHelper.p2l_converter(server_url, dir_VideoData);
+  fields.video_hls_link = hls_VideoData != null ? helper.functionHelper.p2l_converter(server_url, hls_VideoData) : null;
   fields.thumbnail_dir = dir_ThumbnailData;
-  fields.thumbnail_link = config.p2l_converter(server_url, dir_ThumbnailData);
+  fields.thumbnail_link = helper.functionHelper.p2l_converter(server_url, dir_ThumbnailData);
   fields.thumbnail_buffer = new Buffer.from(fs.readFileSync(dir_ThumbnailData)).toString("base64");
   fields.description = Description;
   fields.show = true;
@@ -61,7 +61,7 @@ module.exports.save = async (
 
 module.exports.update = async (_Id, Title, Name, dir_VideoData, dir_Thumbnail, name_Thumbnail, show, hls_VideoData) => {
   log.info("Video data updating to database");
-  const server_url = config.constants().server.bind();
+  const server_url = config.server().bind();
   const dir_ThumbnailData = !dir_Thumbnail || !name_Thumbnail ? null : dir_Thumbnail + "\\" + name_Thumbnail;
   const fields = config.database().structure.model.videos._fields;
   const fieldsKeys = Object.keys(fields);
@@ -73,10 +73,10 @@ module.exports.update = async (_Id, Title, Name, dir_VideoData, dir_Thumbnail, n
   fields.views = null;
   fields.user = null;
   fields.video_dir = dir_VideoData;
-  fields.video_link = config.p2l_converter(server_url, dir_VideoData);
-  fields.video_hls_link = config.p2l_converter(server_url, hls_VideoData);
+  fields.video_link = helper.functionHelper.p2l_converter(server_url, dir_VideoData);
+  fields.video_hls_link = helper.functionHelper.p2l_converter(server_url, hls_VideoData);
   fields.thumbnail_dir = dir_ThumbnailData;
-  fields.thumbnail_link = config.p2l_converter(server_url, dir_ThumbnailData);
+  fields.thumbnail_link = helper.functionHelper.p2l_converter(server_url, dir_ThumbnailData);
   fields.thumbnail_buffer = dir_ThumbnailData
     ? new Buffer.from(fs.readFileSync(dir_ThumbnailData)).toString("base64")
     : null;

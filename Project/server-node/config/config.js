@@ -2,76 +2,6 @@ const path = require("path");
 
 // TODO: Use 'Redis' db for configuration
 class Config {
-  // Bind path with target
-  path_binder(str, target) {
-    const sroot = this.constants().file.locations.root;
-    const schild = this.constants().file.locations.child;
-
-    if (schild.hasOwnProperty(str) === false) {
-      return "";
-    }
-
-    const storage = sroot.storage.source(true);
-    const source = schild[str].source;
-    const bind = this.b2fs_converter(path.join(this.constants().dir.root, storage, source, target, "/"));
-
-    return bind;
-  }
-
-  // Path to Link converter
-  p2l_converter(link, path) {
-    if (!path) return null;
-
-    // Path to Link converter
-    const slash = process.platform === "win32" || path.includes("\\") ? "\\" : "/";
-    const sroot = this.constants().file.locations.root;
-    const storage = sroot.storage.source(false);
-    const actualPath = [];
-    const splitPath = path.split(slash);
-
-    splitPath.forEach((split) => {
-      if (storage === split || actualPath.length !== 0) {
-        actualPath.push(split);
-      }
-    });
-
-    return link + actualPath.join("/");
-  }
-
-  // Backward to Forward slash converter
-  b2fs_converter(path) {
-    if (path.includes("\\")) {
-      const path_array = path.split("\\");
-      return path_array.join("/");
-    }
-
-    return path;
-  }
-
-  // Directory name generator
-  dirn_generator(str) {
-    const divider = "__";
-    const charnumStr = str.replace(/[^a-zA-Z0-9]/g, "");
-    const updateCase = charnumStr.toUpperCase();
-    const generate = updateCase + divider + Date.now();
-    return generate;
-  }
-
-  // Temp name generator
-  tempn_generator(str, channel = "Channel") {
-    const temp_divider = "___temp__";
-    const temp_fix = `${temp_divider}${channel}`; // TODO: Add username and update
-
-    return {
-      encode: () => {
-        return `${str}${temp_fix}`;
-      },
-      decode: () => {
-        return str.substr(0, str.length - (str.length - str.lastIndexOf(temp_divider)));
-      },
-    };
-  }
-
   database() {
     return {
       database: {
@@ -191,6 +121,7 @@ class Config {
 
               api.id = torrent.id; // TODO: Encryprt the id for url
               api.magnet = torrent.magnet;
+              api.hash = torrent.hash;
               api.name = torrent.name;
               api.files = torrent.files;
 
@@ -255,83 +186,90 @@ class Config {
     };
   }
 
-  constants() {
+  server() {
     return {
-      server: {
-        type: "local",
-        local_url: "http://localhost",
-        local_port: "4000",
-        global_url: "",
-        global_port: "",
-        bind: () => {
-          const server = this.constants().server;
-          const type = this.constants().server.type;
+      type: "local",
+      local: { url: "http://localhost", port: "4000" },
+      global: { url: "", port: "" },
+      bind: () => {
+        const server = this.server();
 
-          if (type === "global") {
-            return `${server.global_url}:${server.global_port}/`;
-          }
+        if (server.type === "global") {
+          return `${server.global_url}:${server.global_port}/`;
+        }
 
-          return `${server.local_url}:${server.local_port}/`;
-        },
+        return `${server.local_url}:${server.local_port}/`;
       },
-      secret: {
-        cipher_key: "secretsecretsecretsecretsecretse",
-      },
-      dir: {
-        root: path.join(__dirname, "/../"),
-        config: __dirname,
-        route: path.join(__dirname, "/../route/"),
-        route_api: path.join(__dirname, "/../route/api"),
-        route_web: path.join(__dirname, "/../route/web/"),
-        public: path.join(__dirname, "/../public/"),
-        log: path.join(__dirname, "/../log/"),
-        db: path.join(__dirname, "/../db/"),
-        model: path.join(__dirname, "/../model/"),
-        socket: path.join(__dirname, "/../socket/"),
-        storage: path.join(__dirname, "/../storage/"),
-        utils: path.join(__dirname, "/../utils/"),
-        starter: path.join(__dirname, "/../starter/"),
-        annotation: path.join(__dirname, "/../annotation/"),
-      },
-      log: {
-        show: true,
-      },
-      file: {
-        locations: {
-          root: {
-            storage: {
-              source: (slash = false) => {
-                return slash ? "/storage/" : "storage";
-              },
-            },
-          },
-          child: {
-            temp: {
-              string: "temp",
-              source: "temp/",
-            },
-            video: {
-              string: "video",
-              source: "video/",
-              videos: "videos/",
-            },
-            thumbnail: {
-              string: "thumbnail",
-              source: "thumbnail/",
-              thumbnails: "thumbnails/",
-              no_thumbnail: "no_thumbnail/",
-            },
-            torrent: {
-              string: "torrent",
-              source: "torrent/",
-              torrents: "torrents/",
-              files: "files/",
-              downloads: "downloads/",
-              magnets: "magnets/",
+    };
+  }
+
+  secret() {
+    return {
+      cipher_key: "secretsecretsecretsecretsecretse",
+    };
+  }
+
+  log() {
+    return {
+      show: true,
+    };
+  }
+
+  file() {
+    return {
+      locations: {
+        root: {
+          storage: {
+            source: (slash = false) => {
+              return slash ? "/storage/" : "storage";
             },
           },
         },
+        child: {
+          temp: {
+            string: "temp",
+            source: "temp/",
+          },
+          video: {
+            string: "video",
+            source: "video/",
+            videos: "videos/",
+          },
+          thumbnail: {
+            string: "thumbnail",
+            source: "thumbnail/",
+            thumbnails: "thumbnails/",
+            no_thumbnail: "no_thumbnail/",
+          },
+          torrent: {
+            string: "torrent",
+            source: "torrent/",
+            torrents: "torrents/",
+            files: "files/",
+            downloads: "downloads/",
+            magnets: "magnets/",
+          },
+        },
       },
+    };
+  }
+
+  directory() {
+    return {
+      root: path.join(__dirname, "/../"),
+      config: __dirname,
+      route: path.join(__dirname, "/../route/"),
+      route_api: path.join(__dirname, "/../route/api"),
+      route_web: path.join(__dirname, "/../route/web/"),
+      public: path.join(__dirname, "/../public/"),
+      log: path.join(__dirname, "/../log/"),
+      db: path.join(__dirname, "/../db/"),
+      model: path.join(__dirname, "/../model/"),
+      socket: path.join(__dirname, "/../socket/"),
+      storage: path.join(__dirname, "/../storage/"),
+      utils: path.join(__dirname, "/../utils/"),
+      starter: path.join(__dirname, "/../starter/"),
+      annotation: path.join(__dirname, "/../annotation/"),
     };
   }
 }

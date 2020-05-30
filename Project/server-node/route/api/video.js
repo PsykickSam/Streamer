@@ -36,7 +36,7 @@ router.get("/video/:id", async (req, res) => {
   const video = config.database().bind.api.video(dbVideo);
   const encryptPath = cipher.encrypt(dbVideo.video_dir);
   if (!video.hls) {
-    video.video = `${config.constants().server.bind()}api/video/render/${encryptPath}`;
+    video.video = `${config.server().bind()}api/video/render/${encryptPath}`;
   }
 
   res.json({ video });

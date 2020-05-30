@@ -56,6 +56,6 @@ log.info("Routes are initializer successfully");
 appsocket.run(io);
 log.info("Socket started successfully");
 
-server.listen(config.constants().server.local_port, () => {
-  log.info(`Listening on PORT ${config.constants().server.local_port} - {Socket Attached}`);
+server.listen(config.server().local.port, () => {
+  log.info(`Listening on PORT ${config.server().local.port} - {Socket Attached}`);
 });

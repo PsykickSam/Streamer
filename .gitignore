@@ -4,32 +4,32 @@ Project/server-node/storage/video/
 
 # lock
 Project/server-node/package-lock.json
-Project/client/package-lock.json
-Project/client/yarn.lock
+Project/client-react/package-lock.json
+Project/client-react/yarn.lock
 
 # dependencies
 Project/server-node/node_modules/
-Project/client/node_modules/
-Project/client/.pnp
-Project/client/.pnp.js
+Project/client-react/node_modules/
+Project/client-react/.pnp
+Project/client-react/.pnp.js
 
 # testing
-Project/client/coverage
+Project/client-react/coverage
 
 # production
 Project/server-node/build/
-Project/client/build/
+Project/client-react/build/
 
 # extra
 Project/server-node/__temp/
 
 # misc
-Project/client/.DS_Store
-Project/client/.env.local
-Project/client/.env.development.local
-Project/client/.env.test.local
-Project/client/.env.production.local
-Project/client/npm-debug.log*
-Project/client/yarn-debug.log*
-Project/client/yarn-error.log*
+Project/client-react/.DS_Store
+Project/client-react/.env.local
+Project/client-react/.env.development.local
+Project/client-react/.env.test.local
+Project/client-react/.env.production.local
+Project/client-react/npm-debug.log*
+Project/client-react/yarn-debug.log*
+Project/client-react/yarn-error.log*
 

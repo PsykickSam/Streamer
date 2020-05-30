@@ -17,19 +17,19 @@ const createFolder = (p, s, c = null) => {
 };
 
 const folderCreator = () => {
-  const root = config.constants().dir.root;
+  const root = config.directory().root;
 
-  const storage = path.join(root, config.constants().file.locations.root.storage.source());
-  const video = path.join(storage, config.constants().file.locations.child.video.source);
-  const videos = path.join(video, config.constants().file.locations.child.video.videos);
-  const tempvi = path.join(video, config.constants().file.locations.child.temp.source);
-  const thumbnail = path.join(storage, config.constants().file.locations.child.thumbnail.source);
-  const thumbnails = path.join(thumbnail, config.constants().file.locations.child.thumbnail.thumbnails);
-  const nothumbnail = path.join(thumbnail, config.constants().file.locations.child.thumbnail.no_thumbnail);
-  const tempth = path.join(thumbnail, config.constants().file.locations.child.temp.source);
-  const torrent = path.join(storage, config.constants().file.locations.child.torrent.source);
-  const torrents = path.join(torrent, config.constants().file.locations.child.torrent.torrents);
-  const tempto = path.join(torrent, config.constants().file.locations.child.temp.source);
+  const storage = path.join(root, config.file().locations.root.storage.source());
+  const video = path.join(storage, config.file().locations.child.video.source);
+  const videos = path.join(video, config.file().locations.child.video.videos);
+  const tempvi = path.join(video, config.file().locations.child.temp.source);
+  const thumbnail = path.join(storage, config.file().locations.child.thumbnail.source);
+  const thumbnails = path.join(thumbnail, config.file().locations.child.thumbnail.thumbnails);
+  const nothumbnail = path.join(thumbnail, config.file().locations.child.thumbnail.no_thumbnail);
+  const tempth = path.join(thumbnail, config.file().locations.child.temp.source);
+  const torrent = path.join(storage, config.file().locations.child.torrent.source);
+  const torrents = path.join(torrent, config.file().locations.child.torrent.torrents);
+  const tempto = path.join(torrent, config.file().locations.child.temp.source);
 
   log.info("'Storage' Path: " + storage);
   log.info("'Video' Path: " + video);
