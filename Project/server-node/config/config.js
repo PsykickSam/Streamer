@@ -195,10 +195,10 @@ class Config {
         const server = this.server();
 
         if (server.type === "global") {
-          return `${server.global_url}:${server.global_port}/`;
+          return `${server.global.url}:${server.global.port}/`;
         }
 
-        return `${server.local_url}:${server.local_port}/`;
+        return `${server.local.url}:${server.local.port}/`;
       },
     };
   }

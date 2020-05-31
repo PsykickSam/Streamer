@@ -25,11 +25,10 @@ class FunctionHelper {
     if (!path) return null;
 
     // Path to Link converter
-    const slash = process.platform === "win32" || path.includes("\\") ? "\\" : "/";
     const sroot = this.config.file().locations.root;
     const storage = sroot.storage.source(false);
     const actualPath = [];
-    const splitPath = path.split(slash);
+    const splitPath = path.split("/");
 
     splitPath.forEach((split) => {
       if (storage === split || actualPath.length !== 0) {
