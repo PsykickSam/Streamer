@@ -47,7 +47,7 @@ To run the server at [localhost:4000](http://localhost:4000) to run the API and 
 
 Builds the app for production to the `build` folder.
 
-### ~~`npm test`~~
+#### ~~`npm test`~~
 
 Feature not available now, add in future!
 
@@ -72,7 +72,7 @@ Launches the test runner in the interactive watch mode. Feature not implemented 
 
 New features are adding soon,
 
-#### 1. Audio Streaming 
+* #### Audio Streaming 
 
 ## Issues
 
