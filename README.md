@@ -39,11 +39,11 @@ This is some main libraries or packages used for this app, Cradits goes to all t
 
 Scripts for server:
 
-### `npm run rock`
+#### `npm run rock`
 
 To run the server at [localhost:4000](http://localhost:4000) to run the API and view in browser
 
-### `npm build`
+#### `npm build`
 
 Builds the app for production to the `build` folder.
 
@@ -51,23 +51,22 @@ Builds the app for production to the `build` folder.
 
 Feature not available now, add in future!
 
-
 ## Available Scripts - Frontend
 
 Scripts for client:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.<br />
 Open [localhost:3000](http://localhost:3000) to view it in the browser.
 
-### ~~`npm test`~~
-
-Launches the test runner in the interactive watch mode. Feature not implemented yet
-
-### `npm build`
+#### `npm build`
 
 Builds the app for production to the `build` folder.<br />
+
+#### ~~`npm test`~~
+
+Launches the test runner in the interactive watch mode. Feature not implemented yet
 
 ## Upcoming
 
@@ -79,7 +78,7 @@ New features are adding soon,
 
 Currently facing issues, will be fixed in future
 
-#### **buf length isn't multiple of compact IP/PORTs (6 bytes)**
+* #### **buf length isn't multiple of compact IP/PORTs (6 bytes)**
 This error is occuring while downloading torrent file, the fix is not fixed yet
 
 
