@@ -29,10 +29,9 @@ This is some main libraries or packages used for this app, Cradits goes to all t
 * Fluent-FFMPEG
 
 #### Frontend
-* Socket.io-Client
 * Axios
 * Material UI
-* Axios
+* Socket.io-Client
 * React-Audio-Player
 * React-Video-Player
 
