@@ -33,30 +33,6 @@ const TransitionComponent = (props) => {
   );
 };
 
-// Component
-const StyledTreeItem = withStyles((theme) => ({
-  iconContainer: {
-    "& .close": {
-      opacity: 0.3,
-    },
-  },
-  group: {
-    marginLeft: 0,
-    marginTop: 4,
-    marginBottom: 4,
-    paddingLeft: 12,
-    borderLeft: `1px dashed ${fade(theme.palette.text.primary, 0.4)}`,
-  },
-  label: {
-    clear: "both",
-    display: "inline-block",
-    overflow: "hidden",
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis",
-    fontSize: 15,
-  },
-}))((props) => <TreeItem {...props} align="left" TransitionComponent={TransitionComponent} />);
-
 // Styles
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -70,6 +46,39 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
 }));
+
+// Component
+const StyledTreeItem = (props) => {
+  return (
+    <TreeItem
+      {...props}
+      align="left"
+      TransitionComponent={TransitionComponent}
+      style={{
+        iconContainer: {
+          "& .close": {
+            opacity: 0.3,
+          },
+        },
+        group: {
+          marginLeft: 0,
+          marginTop: 4,
+          marginBottom: 4,
+          paddingLeft: 12,
+          borderLeft: `1px dashed ${fade("#000", 0.4)}`,
+        },
+        label: {
+          clear: "both",
+          display: "inline-block",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
+          fontSize: 15,
+        },
+      }}
+    />
+  );
+};
 
 const pathTreeBuilder = (torrent, pageState, setPageState) => {
   const files = torrent.files;
@@ -120,39 +129,37 @@ const pathTreeBuilder = (torrent, pageState, setPageState) => {
       finalList.push(
         <StyledTreeItem
           key={Date.now() * Math.random() * Math.random() * (index + 2)}
-          nodeId={(nodeId = nodeId + 1)}
+          nodeId={`${(nodeId = nodeId + 1)}`}
           label={sortedPath.name}
         >
           {Object.keys(filesList).includes(sortedPath.name)
             ? filesList[sortedPath.name].map((singleFile, i) => {
                 return (
-                  <Tooltip title={singleFile.fileName}>
-                    <StyledTreeItem
-                      key={Date.now() * Math.random() * Math.random() * (i + 1)}
-                      nodeId={(nodeId = nodeId + 1)}
-                      label={singleFile.fileName}
-                      icon={Helper.mediaFileTypeChecker(singleFile.fileName) ? <IconMovie /> : <IconFile />}
-                      onClick={() => {
-                        if (!Helper.mediaFileTypeChecker(singleFile.fileName)) {
-                          setPageState({
-                            ...pageState,
-                            playURL: "",
-                            showPoster: false,
-                            snackbar: {
-                              isShow: true,
-                              message: "Sorry! File is not playable as media",
-                              severity: "warning",
-                            },
-                          });
-                          return;
-                        }
+                  <StyledTreeItem
+                    key={Date.now() * Math.random() * Math.random() * (i + 1)}
+                    nodeId={`${(nodeId = nodeId + 1)}`}
+                    label={singleFile.fileName}
+                    icon={Helper.mediaFileTypeChecker(singleFile.fileName) ? <IconMovie /> : <IconFile />}
+                    onClick={() => {
+                      if (!Helper.mediaFileTypeChecker(singleFile.fileName)) {
+                        setPageState({
+                          ...pageState,
+                          playURL: "",
+                          showPoster: false,
+                          snackbar: {
+                            isShow: true,
+                            message: "Sorry! File is not playable as media",
+                            severity: "warning",
+                          },
+                        });
+                        return;
+                      }
 
-                        const playURL = `http://localhost:4000/api/torrent/render/${singleFile.fileIndex}/${torrent.hash}`;
-                        const isVideo = Helper.mediaTypeCheker(singleFile.fileName);
-                        setPageState({ ...pageState, playURL, isVideo });
-                      }}
-                    />
-                  </Tooltip>
+                      const playURL = `http://localhost:4000/api/torrent/render/${singleFile.fileIndex}/${torrent.hash}`;
+                      const isVideo = Helper.mediaTypeCheker(singleFile.fileName);
+                      setPageState({ ...pageState, playURL, isVideo });
+                    }}
+                  />
                 );
               })
             : null}
@@ -160,38 +167,36 @@ const pathTreeBuilder = (torrent, pageState, setPageState) => {
       );
     } else {
       finalList = [
-        <StyledTreeItem key={Date.now()} nodeId={(nodeId = nodeId + 1)} label={lastChildParent}>
+        <StyledTreeItem key={Date.now()} nodeId={`${(nodeId = nodeId + 1)}`} label={lastChildParent}>
           {finalList}
           {Object.keys(filesList).includes(sortedPath.name)
             ? filesList[sortedPath.name].map((singleFile, i) => {
                 return (
-                  <Tooltip title={singleFile.fileName}>
-                    <StyledTreeItem
-                      key={Date.now() * Math.random() * Math.random() * (i + 1)}
-                      nodeId={(nodeId = nodeId + 1)}
-                      label={singleFile.fileName}
-                      icon={Helper.mediaFileTypeChecker(singleFile.fileName) ? <IconMovie /> : <IconFile />}
-                      onClick={() => {
-                        if (!Helper.mediaFileTypeChecker(singleFile.fileName)) {
-                          setPageState({
-                            ...pageState,
-                            playURL: "",
-                            showPoster: false,
-                            snackbar: {
-                              isShow: true,
-                              message: "Sorry! File is not playable as media",
-                              severity: "warning",
-                            },
-                          });
-                          return;
-                        }
+                  <StyledTreeItem
+                    key={Date.now() * Math.random() * Math.random() * (i + 1)}
+                    nodeId={`${(nodeId = nodeId + 1)}`}
+                    label={singleFile.fileName}
+                    icon={Helper.mediaFileTypeChecker(singleFile.fileName) ? <IconMovie /> : <IconFile />}
+                    onClick={() => {
+                      if (!Helper.mediaFileTypeChecker(singleFile.fileName)) {
+                        setPageState({
+                          ...pageState,
+                          playURL: "",
+                          showPoster: false,
+                          snackbar: {
+                            isShow: true,
+                            message: "Sorry! File is not playable as media",
+                            severity: "warning",
+                          },
+                        });
+                        return;
+                      }
 
-                        const playURL = `http://localhost:4000/api/torrent/render/${singleFile.fileIndex}/${torrent.hash}`;
-                        const isVideo = Helper.mediaTypeCheker(singleFile.fileName);
-                        setPageState({ ...pageState, playURL, isVideo });
-                      }}
-                    />
-                  </Tooltip>
+                      const playURL = `http://localhost:4000/api/torrent/render/${singleFile.fileIndex}/${torrent.hash}`;
+                      const isVideo = Helper.mediaTypeCheker(singleFile.fileName);
+                      setPageState({ ...pageState, playURL, isVideo });
+                    }}
+                  />
                 );
               })
             : null}

@@ -14,8 +14,7 @@ const locations = config.file().locations.child;
 const status = { progress: 0, speed: 0, ratio: 0 };
 const error = { message: "" };
 
-let webtorrentInc = new WebTorrent();
-let webtorrent = new WebTorrent();
+const webtorrent = new WebTorrent();
 
 // Functions
 const timeControl = {
@@ -77,8 +76,8 @@ router.post("/torrent/show", (req, res) => {
     return;
   }
 
-  if (webtorrentInc.get(magnet_uri)) {
-    webtorrentInc.remove(magnet_uri);
+  if (webtorrent.get(magnet_uri)) {
+    webtorrent.remove(magnet_uri);
   }
 
   // remove same torrent
@@ -101,12 +100,12 @@ router.post("/torrent/show", (req, res) => {
     const message = "Failed to load torrent files! Torrent is not downloadable.";
     const json = fh_api.generate({}, message, true, fh_api.status.FAILED, fh_api.code.c500);
 
-    // webtorrentInc.destroy();
+    webtorrent.remove(magnet_uri);
     res.json(json);
   }, 30000);
 
   log.info("Torrent is adding to the queue");
-  webtorrentInc.add(magnet_hash, { path: temp_dir }, async (torrent) => {
+  webtorrent.add(magnet_uri, { path: temp_dir }, async (torrent) => {
     log.info("Torrent is added to the queue");
     if (torrent && holder.isDownloadable) {
       log.info("Torrent check timer is turned off");
@@ -125,8 +124,8 @@ router.post("/torrent/show", (req, res) => {
         });
       });
 
-      torrent.destroy();
-      // webtorrentInc.destroy();
+      // remove torrent
+      webtorrent.remove(magnet_uri);
 
       // TODO: Update 'User' with authenticated user
       const saved = await db.torrent.save(magnet_uri, torrent.name, files, torrent.infoHash, "User");
