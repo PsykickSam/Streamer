@@ -1,6 +1,6 @@
 # Streamer
 
-Video, Torrent, Audio streaming application. It is using MongoDB as primary database, HLS video conversion system for uploaded video. Webtorrent library is used for torrent downloading and streaming. This program uses Socket programming in uploading videos. 
+Video, Torrent, Audio streaming application. This application has features like video uploading and streaming, torrent video and audio downloading and streaming and music streaming. 
 
 ## Features
 
@@ -26,6 +26,7 @@ This is some main libraries or packages used for this app, Cradits goes to all t
 * Webtorrent
 * Async 
 * Express
+* Fluent-FFMPEG
 
 #### Frontend
 * Socket.io-Client
