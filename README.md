@@ -6,14 +6,14 @@ Video, Torrent, Audio streaming application. This application has features like 
 
 This is the current implemented features of the application
 
+* Video Uploading
 * Video Streaming
   * HLS Streaming
-  * Video File Streaming
-* Video Upload
+  * Video Streaming
 * Torrent Streaming
   * Video Streaming
-  * Audio Streming
-  * Folders Tree View
+  * Audio Streaming
+  * Folder Tree View
 
 ## Libraries
 
