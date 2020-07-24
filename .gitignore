@@ -3,10 +3,11 @@ Project/server-node/storage/torrent/
 Project/server-node/storage/video/
 
 # lock
+Project/client-react/yarn.lock
 Project/server-node/package-lock.json
 Project/client-react/package-lock.json
-Project/client-react/yarn.lock
 Project/desktop-electron/package-lock.json
+Project/desktop-electron/lib/torrent-stream/package-lock.json
 
 # dependencies
 Project/server-node/node_modules/
