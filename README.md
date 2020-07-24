@@ -39,6 +39,10 @@ This is some main libraries or packages used for this app, Cradits goes to all t
 
 Scripts for server:
 
+#### `npm install`
+
+Install project dependencies.
+
 #### `npm run rock`
 
 To run the server at [localhost:4000](http://localhost:4000) to run the API and view in browser
@@ -55,6 +59,10 @@ Feature not available now, add in future!
 
 Scripts for client:
 
+#### `npm install`
+
+Install project dependencies.
+
 #### `npm start`
 
 Runs the app in the development mode.<br />
@@ -70,7 +78,11 @@ Launches the test runner in the interactive watch mode. Feature not implemented 
 
 ## Available Scripts - Desktop - Electron
 
-Scripts for client:
+Scripts for application:
+
+#### `npm install`
+
+Install project dependencies.
 
 #### `npm start`
 
