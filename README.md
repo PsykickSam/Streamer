@@ -45,7 +45,7 @@ To run the server at [localhost:4000](http://localhost:4000) to run the API and 
 
 #### `npm build`
 
-Builds the app for production to the `build` folder.
+Build the app for production to the `build` folder.
 
 #### ~~`npm test`~~
 
@@ -62,7 +62,31 @@ Open [localhost:3000](http://localhost:3000) to view it in the browser.
 
 #### `npm build`
 
-Builds the app for production to the `build` folder.<br />
+Build the app for production to the `build` folder.
+
+#### ~~`npm test`~~
+
+Launches the test runner in the interactive watch mode. Feature not implemented yet
+
+## Available Scripts - Desktop - Electron
+
+Scripts for client:
+
+#### `npm start`
+
+Runs the app window in the development mode.
+
+#### `npm run pack-win`
+
+Build the windows app for production in release-builds.
+
+#### `npm run pack-mac`
+
+Build the mac app for production in release-builds.
+
+#### `npm run pack-linux`
+
+Build the linux app for production in release-builds.
 
 #### ~~`npm test`~~
 
@@ -72,7 +96,8 @@ Launches the test runner in the interactive watch mode. Feature not implemented 
 
 New features are adding soon,
 
-* #### Audio Streaming 
+* #### Audio Streaming - Web Application
+* #### **Finalize - Desktop - Electron
 
 ## Issues
 
