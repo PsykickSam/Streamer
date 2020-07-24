@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "Niconne";
+  src: url("../fonts/Niconne-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Pattaya';
+  src: url("../fonts/Pattaya-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Quattrocento Sans';
+  src: url("../fonts/QuattrocentoSans-Bold.ttf") format("truetype"),
+       url("../fonts/QuattrocentoSans-BoldItalic.ttf") format("truetype"),
+       url("../fonts/QuattrocentoSans-Italic.ttf") format("truetype"),
+       url("../fonts/QuattrocentoSans-Regular.ttf") format("truetype");
+}
+

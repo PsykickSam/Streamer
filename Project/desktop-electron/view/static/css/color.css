@@ -1,0 +1,41 @@
+/* Colors */
+:root {
+  --black: #212121;
+  --black-pure: #000000;
+  --orange: #ff5722;
+}
+
+/* Class */
+.transp.bg {
+  border: 0;
+  background-color: transparent !important;
+}
+
+.transp.fg {
+  border: 0;
+  background-color: transparent !important;
+}
+
+.blk-fg {
+  color: var(--black) !important;
+}
+
+.blk-bg {
+  background-color: var(--black) !important;
+}
+
+.pr-blk-fg {
+  color: var(--black-pure) !important;
+}
+
+.pr-blk-bg {
+  background-color: var(--black-pure) !important;
+}
+
+.blu-fg {
+  color: blue !important;
+}
+
+.blu-bg {
+  background-color: blue !important;
+}

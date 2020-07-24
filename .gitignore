@@ -6,12 +6,15 @@ Project/server-node/storage/video/
 Project/server-node/package-lock.json
 Project/client-react/package-lock.json
 Project/client-react/yarn.lock
+Project/desktop-electron/package-lock.json
 
 # dependencies
 Project/server-node/node_modules/
 Project/client-react/node_modules/
 Project/client-react/.pnp
 Project/client-react/.pnp.js
+Project/desktop-electron/node_modules/
+Project/desktop-electron/release-builds
 
 # testing
 Project/client-react/coverage

@@ -1,0 +1,32 @@
+{
+  "name": "torrent-stream",
+  "version": "1.2.0",
+  "description": "Low level streaming torrent client that exposes files as node.js streams and downloads pieces based on demand",
+  "repository": "git://github.com/mafintosh/torrent-stream.git",
+  "scripts": {
+    "test": "standard && tap test/*.js"
+  },
+  "dependencies": {
+    "bitfield": "^3.0.0",
+    "bncode": "^0.5.3",
+    "buffer-from": "^1.1.1",
+    "end-of-stream": "^1.4.4",
+    "fs-chunk-store": "^2.0.2",
+    "hat": "0.0.3",
+    "immediate-chunk-store": "^2.1.0",
+    "ip-set": "^1.0.2",
+    "mkdirp": "^1.0.4",
+    "parse-torrent": "^7.1.3",
+    "peer-wire-swarm": "^0.12.2",
+    "rimraf": "^3.0.2",
+    "torrent-discovery": "^9.3.0",
+    "torrent-piece": "^2.0.0"
+  },
+  "devDependencies": {
+    "buffer-alloc": "^1.1.0",
+    "bittorrent-tracker": "^7.7.0",
+    "fs-extra": "^0.26.4",
+    "standard": "^5.1.0",
+    "tap": "^0.4.8"
+  }
+}

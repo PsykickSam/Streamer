@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Streamer</title>
+    <link rel="stylesheet" href="./static/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/fontface.css" />
+    <link rel="stylesheet" href="./static/css/padding.css" />
+    <link rel="stylesheet" href="./static/css/margin.css" />
+    <link rel="stylesheet" href="./static/css/color.css" />
+    <link rel="stylesheet" href="./static/css/styles.css" />
+  </head>
+  <body>
+    <div class="panel fixed shadow blk-bg" id="window">
+      <div class="level">
+        <div class="level-left">
+          <div class="panel-block">
+            <h1>
+              <span id="window-header-text" class="disable-drag">
+                Streamer
+              </span>
+            </h1>
+          </div>
+        </div>
+
+        <div class="level-right">
+          <div class="panel-block">
+            <div class="buttons disable-drag">
+              <a class="button is-black transp bg" id="win-minimize-btn">
+                <i class="fas fa-compress-alt"></i>
+              </a>
+              <a class="button is-black transp bg" id="win-close-btn">
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="grid-base">
+      <div id="grid">
+        <div id="sidebar" class="scrollable y">
+          <ul id="tree-base-main" class="tree-base only-cursor-pointer">
+            <li class="tree-node" node-id="1"><span>Folder 1</span></li>
+            <ul class="tree-node-child" node-ref="1">
+              <div class="tree-base">
+                <li class="tree-node" node-id="2"><span>Folder 11</span></li>
+                <ul class="tree-node-child" node-ref="2">
+                  <div class="tree-base">
+                    <li class="tree-node" node-id="3"><span>File X</span></li>
+                  </div>
+                </ul>
+
+                <li class="tree-node" node-id="4"><span>File A</span></li>
+                <li class="tree-node" node-id="5"><span>File B</span></li>
+              </div>
+            </ul>
+
+            <li class="tree-node" node-id="6"><span>File T</span></li>
+            <li class="tree-node" node-id="7"><span>File Y</span></li>
+          </ul>
+        </div>
+
+        <div id="content">
+          <section class="section static rpt1 rpb1">
+            <div class="static-top">
+              <div class="panel">
+                <div class="level">
+                  <div class="level-left">
+                    <p class="head-main-title">
+                      Streamer - Torrent Streaming Edition
+                    </p>
+                  </div>
+                  <div class="level-right">
+                    <div class="buttons">
+                      <a class="button buttons-anywhere mr0 pr8" id="btn-main-win-options">
+                        <span class="icon is-small">
+                          <i class="fas fa-list"></i>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="torrent-list-main" class="static-bottom scrollable y">
+              <section class="container">
+                <section class="columns user-torrent only-cursor-pointer">
+                  <seciton class="column">
+                    <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                          Torrent
+                        </p>
+
+                        <div class="buttons">
+                          <a class="button app-basic-button btn-play">
+                            <span class="icon is-small">
+                              <i class="far fa-play-circle"></i>
+                            </span>
+                          </a>
+                          <a class="button app-basic-button btn-delete mr15">
+                            <span class="icon is-small">
+                              <i class="far fa-times-circle"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </header>
+                      <div class="card-content">
+                        <p class="torrent-item-content name">Name: Torrent File Name</p>
+                        <p class="torrent-item-content magnet">Magnet: Magnet</p>
+                      </div>
+                    </div>
+                  </seciton>
+                </section>
+
+                <section class="columns user-torrent only-cursor-pointer">
+                  <seciton class="column">
+                    <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                          Torrent
+                        </p>
+
+                        <div class="buttons">
+                          <a class="button app-basic-button">
+                            <span class="icon is-small">
+                              <i class="far fa-play-circle"></i>
+                            </span>
+                          </a>
+                          <a class="button app-basic-button mr15">
+                            <span class="icon is-small">
+                              <i class="far fa-times-circle"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </header>
+                      <div class="card-content">
+                        <p class="torrent-item-content name">Name: Torrent File Name</p>
+                        <p class="torrent-item-content magnet">Magnet: Magnet</p>
+                      </div>
+                    </div>
+                  </seciton>
+                </section>
+
+                <section class="columns user-torrent only-cursor-pointer">
+                  <seciton class="column">
+                    <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                          Torrent
+                        </p>
+
+                        <div class="buttons">
+                          <a class="button app-basic-button">
+                            <span class="icon is-small">
+                              <i class="far fa-play-circle"></i>
+                            </span>
+                          </a>
+                          <a class="button app-basic-button mr15">
+                            <span class="icon is-small">
+                              <i class="far fa-times-circle"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </header>
+                      <div class="card-content">
+                        <p class="torrent-item-content name">Name: Torrent File Name</p>
+                        <p class="torrent-item-content magnet">Magnet: Magnet</p>
+                      </div>
+                    </div>
+                  </seciton>
+                </section>
+
+                <section class="columns user-torrent only-cursor-pointer">
+                  <seciton class="column">
+                    <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                          Torrent
+                        </p>
+
+                        <div class="buttons">
+                          <a class="button app-basic-button">
+                            <span class="icon is-small">
+                              <i class="far fa-play-circle"></i>
+                            </span>
+                          </a>
+                          <a class="button app-basic-button mr15">
+                            <span class="icon is-small">
+                              <i class="far fa-times-circle"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </header>
+                      <div class="card-content">
+                        <p class="torrent-item-content name">Name: Torrent File Name</p>
+                        <p class="torrent-item-content magnet">Magnet: Magnet</p>
+                      </div>
+                    </div>
+                  </seciton>
+                </section>
+
+                <section class="columns user-torrent only-cursor-pointer">
+                  <seciton class="column">
+                    <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                          Torrent
+                        </p>
+
+                        <div class="buttons">
+                          <a class="button app-basic-button">
+                            <span class="icon is-small">
+                              <i class="far fa-play-circle"></i>
+                            </span>
+                          </a>
+                          <a class="button app-basic-button mr15">
+                            <span class="icon is-small">
+                              <i class="far fa-times-circle"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </header>
+                      <div class="card-content">
+                        <p class="torrent-item-content name">Name: Torrent File Name</p>
+                        <p class="torrent-item-content magnet">Magnet: Magnet</p>
+                      </div>
+                    </div>
+                  </seciton>
+                </section>
+
+                <section class="columns user-torrent only-cursor-pointer">
+                  <seciton class="column">
+                    <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                          Torrent
+                        </p>
+
+                        <div class="buttons">
+                          <a class="button app-basic-button">
+                            <span class="icon is-small">
+                              <i class="far fa-play-circle"></i>
+                            </span>
+                          </a>
+                          <a class="button app-basic-button mr15">
+                            <span class="icon is-small">
+                              <i class="far fa-times-circle"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </header>
+                      <div class="card-content">
+                        <p class="torrent-item-content name">Name: Torrent File Name</p>
+                        <p class="torrent-item-content magnet">Magnet: Magnet</p>
+                      </div>
+                    </div>
+                  </seciton>
+                </section>
+
+                <section class="columns user-torrent only-cursor-pointer">
+                  <seciton class="column">
+                    <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                          Torrent
+                        </p>
+
+                        <div class="buttons">
+                          <a class="button app-basic-button">
+                            <span class="icon is-small">
+                              <i class="far fa-play-circle"></i>
+                            </span>
+                          </a>
+                          <a class="button app-basic-button mr15">
+                            <span class="icon is-small">
+                              <i class="far fa-times-circle"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </header>
+                      <div class="card-content">
+                        <p class="torrent-item-content name">Name: Torrent File Name</p>
+                        <p class="torrent-item-content magnet">Magnet: Magnet</p>
+                      </div>
+                    </div>
+                  </seciton>
+                </section>
+
+                <section class="columns user-torrent only-cursor-pointer">
+                  <seciton class="column">
+                    <div class="card">
+                      <header class="card-header">
+                        <p class="card-header-title">
+                          Torrent
+                        </p>
+
+                        <div class="buttons">
+                          <a class="button app-basic-button">
+                            <span class="icon is-small">
+                              <i class="far fa-play-circle"></i>
+                            </span>
+                          </a>
+                          <a class="button app-basic-button mr15">
+                            <span class="icon is-small">
+                              <i class="far fa-times-circle"></i>
+                            </span>
+                          </a>
+                        </div>
+                      </header>
+                      <div class="card-content">
+                        <p class="torrent-item-content name">Name: Torrent File Name</p>
+                        <p class="torrent-item-content magnet">Magnet: Magnet</p>
+                      </div>
+                    </div>
+                  </seciton>
+                </section>
+              </section>
+            </div>
+          </section>
+        </div>
+
+        <!-- MODAL -->
+        <div id="modal-main-win-options" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="card">
+              <header class="card-header pl10 pr10">
+                <p class="card-header-title niconne normal">
+                  Options
+                </p>
+
+                <div class="buttons">
+                  <a
+                    class="button app-basic-button buttons-anywhere btn-close-all"
+                    id="btn-main-win-options-modal-close"
+                  >
+                    <span class="icon is-small">
+                      <i class="fas fa-times"></i>
+                    </span>
+                  </a>
+                </div>
+              </header>
+              <div class="card-content">
+                <ul class="menu-list">
+                  <li><a id="btn-main-win-add-torrent-magnet">Add Torrent Magnet (Ctrl + E)</a></li>
+                  <li><a id="btn-main-win-add-torrent-file">Add Torrent File (Ctrl + F)</a></li>
+                  <li><a id="btn-main-win-help">Help (Ctrl + H)</a></li>
+                  <li><a id="btn-main-win-about">About</a></li>
+                  <li><a id="btn-main-win-exit">Exit</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+
+        <div id="modal-main-win-magnet" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="card">
+              <header class="card-header pl10 pr10">
+                <p class="card-header-title niconne normal">
+                  Magnet
+                </p>
+
+                <div class="buttons">
+                  <a
+                    class="button buttons-anywhere app-basic-button btn-close-all"
+                    id="btn-main-win-magnet-modal-close"
+                  >
+                    <span class="icon is-small">
+                      <i class="fas fa-times"></i>
+                    </span>
+                  </a>
+                </div>
+              </header>
+              <div class="card-content">
+                <div class="field pl8 pr8">
+                  <div class="control">
+                    <input class="input app-basic-input" id="input-magnet" type="text" placeholder="Enter Magnet URL">
+                  </div>
+                </div>
+              </div>
+              <footer class="card-footer">
+                <a class="card-footer-item button app-basic-button" id="btn-forward-magnet">Forward</a>
+              </footer>
+            </div>
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+        <!-- MODAL -->
+      </div>
+    </div>
+
+    <script src="./static/js/electron.run.js"></script>
+    <script src="./static/js/script.js"></script>
+  </body>
+</html>

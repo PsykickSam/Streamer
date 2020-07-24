@@ -1,0 +1,365 @@
+html,
+body {
+  background-color: #212121;
+  overflow: hidden;
+}
+
+.fixed {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 55px;
+  top: 0 !important;
+  left: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0;
+}
+
+.fixed.shadow {
+  box-shadow: 0 1px 5px #000000;
+}
+
+.scrollable {
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+
+.scrollable.x {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.scrollable.y {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent;
+}
+
+#window {
+  -webkit-app-region: drag;
+}
+
+.disable-drag {
+  -webkit-app-region: no-drag;
+}
+
+#window-header-text {
+  font-family: "Niconne", cursive;
+  font-size: 1.5rem;
+  margin-right: 8px;
+  margin-left: 16px;
+  cursor: pointer;
+  user-select: none;
+  color: ghostwhite;
+  transition: color 0.5s;
+}
+
+#window-header-text:hover {
+  color: white;
+  text-shadow: 0 0 3px white;
+}
+
+#win-home-btn,
+#win-minimize-btn,
+#win-close-btn {
+  color: ghostwhite;
+  font-size: 1rem;
+  transition: color 0.5s;
+}
+
+#win-home-btn:hover {
+  color: #9ef1f7;
+  text-shadow: 0 0 3px #9ef1f7;
+}
+
+#win-minimize-btn:hover {
+  color: #9e9e9e;
+  text-shadow: 0 0 3px #9e9e9e;
+}
+
+#win-close-btn:hover {
+  color: #f44336;
+  text-shadow: 0 0 3px #f44336;
+}
+
+.app-basic-button {
+  border: 0;
+  background-color: transparent !important;
+  color: ghostwhite !important;
+  text-decoration: none;
+}
+
+.app-basic-button:hover {
+  color: #9ef1f7 !important;
+}
+
+#btn-main-win-options {
+  border: 0;
+  background-color: transparent !important;
+  color: ghostwhite !important;
+  text-decoration: none;
+}
+
+#btn-main-win-options:hover {
+  color: #9ef1f7 !important;
+}
+
+.torrent-item-content {
+  font-family: "Quattrocento Sans", sans-serif;
+  font-style: normal;
+}
+
+#grid-base {
+  width: 100vw;
+  height: 100vh;
+}
+
+#grid {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  transition: 1s ease;
+  padding-top: 55px;
+  padding-bottom: -55px;
+}
+
+#sidebar {
+  width: 0%;
+  float: left;
+  height: 100%;
+  transition: ease 1s;
+  position: relative;
+  overflow-y: scroll;
+}
+
+#sidebar * {
+  display: none;
+}
+
+.static {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.static-top {
+  flex: 0 0 100%;
+  width: 100%;
+  max-height: 10%;
+  min-height: 10%;
+  transition: 1s all;
+}
+
+.static-bottom {
+  flex: 0 0 100%;
+  width: 100%;
+  max-height: 90%;
+  min-height: 90%;
+  transition: 1s all;
+}
+
+#content {
+  width: 100%;
+  height: 100%;
+  transition: 1s all;
+}
+
+.sidebar-show {
+  width: 30% !important;
+  border-right: solid 1px #181818;
+}
+
+.sidebar-show * {
+  display: block !important;
+}
+
+.content-sqeeze {
+  width: 70% !important;
+}
+
+#tree-base-main {
+  color: ghostwhite;
+  font-size: 13px;
+  font-family: "Niccone", cursive;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 8px;
+  list-style-type: none;
+  transition: all 0.5s ease;
+}
+
+.tree-node {
+  margin: 15px 0;
+  border: 1px dotted white;
+  border-width: 0 0 1px 0;
+  padding: 1px 0;
+  transition: ease-in-out 0.5s;
+}
+
+.tree-node > span {
+  display: block;
+  border-bottom: 0;
+  padding: 4px 12px;
+  margin-left: 13px;
+  border-radius: 3px;
+  margin-bottom: -15px;
+  white-space: nowrap;
+  background: rgb(71, 71, 71);
+  transition: all 0.6s ease-in-out;
+}
+
+.tree-node > span:hover {
+  background: #181818;
+}
+
+.tree-node-child {
+  padding-left: 30px;
+  opacity: 1;
+  left: 0;
+  display: inline;
+  transition: all 1s ease;
+}
+
+.tree-base {
+  border-left: 1px dotted white;
+  transition: ease-in-out 0.5s;
+}
+
+.tree-child-hide {
+  opacity: 0;
+  left: 100%;
+  margin-left: 200px;
+}
+
+.tree-child-dispel {
+  display: none !important;
+}
+
+#player-main {
+  width: 100%;
+  height: 100%;
+}
+
+#player {
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+.video-buttons {
+  right: 0;
+  position: absolute;
+}
+
+.buttons-anywhere {
+  z-index: 100;
+}
+
+#btn-main-win-options {
+  font-size: 1rem;
+  margin-right: 10px;
+  color: ghostwhite;
+  transition: color 0.5s;
+}
+
+#btn-main-win-options:hover {
+  color: #9ef1f7;
+  text-shadow: 0 0 3px #9ef1f7;
+}
+
+#btn-video-win-files-list {
+  font-size: 1rem;
+  margin-right: 10px;
+  color: ghostwhite;
+  transition: color 0.5s;
+}
+
+#btn-video-win-files-list:hover {
+  color: #9ef1f7;
+  text-shadow: 0 0 3px #9ef1f7;
+}
+
+.only-cursor-pointer {
+  cursor: pointer;
+}
+
+.head-main-title {
+  font-family: "Niconne", cursive;
+  color: ghostwhite;
+  font-size: 20px;
+}
+
+.btn-close-all:hover {
+  color: red !important;
+}
+
+.app-basic-input {
+  background-color: transparent !important;
+  color: ghostwhite;
+  text-align: center;
+  caret-color: ghostwhite;
+  border: 1px solid ghostwhite;
+  transition: all 1s ease;
+  border-radius: 5px;
+}
+
+.app-basic-input::placeholder {
+  color: lightgray;
+}
+
+.app-basic-input:hover {
+  border: 1px solid #9ef1f7;
+}
+
+/* Bulma */ 
+.card {
+  background-color: #3a3a3a;
+  color: ghostwhite;
+  border-radius: 5px;
+}
+
+.card-header-title {
+  font-family: "Pattaya", sans-serif;
+  color: ghostwhite;
+  letter-spacing: 4px;
+}
+
+.card-header-title.niconne {
+  font-family: "Niconne", cursive;
+  color: ghostwhite;
+  letter-spacing: 4px;
+}
+
+.card-header-title.normal {
+  letter-spacing: 1px;
+  font-size: 20px;
+}
+
+.card-content {
+  padding: 10px 15px;
+}
+
+.card-footer {
+  border-top: none;
+}
+
+.menu-list li a {
+  font-weight: 300;
+  color: ghostwhite;
+  border: 1px solid transparent;
+}
+
+.menu-list li a:hover {
+  background-color: transparent !important;
+  border: 1px solid ghostwhite;
+  color: ghostwhite;
+}

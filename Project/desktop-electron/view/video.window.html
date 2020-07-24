@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Streamer</title>
+    <link rel="stylesheet" href="./static/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="./static/css/lib.plyr.css" />
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/fontface.css" />
+    <link rel="stylesheet" href="./static/css/padding.css" />
+    <link rel="stylesheet" href="./static/css/margin.css" />
+    <link rel="stylesheet" href="./static/css/color.css" />
+    <link rel="stylesheet" href="./static/css/styles.css" />
+  </head>
+  <body class="">
+    <div class="panel fixed pr-blk-bg" id="window">
+      <div class="level">
+        <div class="level-left">
+          <div class="panel-block">
+            <a class="button is-black transp bg disable-drag" id="win-home-btn">
+              <i class="fas fa-home"></i>
+            </a>
+            <h1>
+              <span id="window-header-text" class="disable-drag">
+                Streamer
+              </span>
+            </h1>
+          </div>
+        </div>
+
+        <div class="level-right">
+          <div class="panel-block is-pulled-right">
+            <div class="buttons disable-drag">
+              <a class="button is-black transp bg" id="win-minimize-btn">
+                <i class="fas fa-compress-alt"></i>
+              </a>
+              <a class="button is-black transp bg" id="win-close-btn">
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="grid-base" class="pr-blk-bg">
+      <div id="grid">
+        <div id="content" class="scrollable y">
+          <div id="player-main">
+            <a class="button is-black transp bg video-buttons buttons-anywhere" id="btn-video-win-files-list">
+              <i class="fas fa-list"></i>
+            </a>
+
+            <video autoplay id="player">
+              <source src="http://localhost:9000/render" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-video-win-files-list" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="card">
+          <div class="card-content">
+            <h1>FFFF</h1>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <script src="./static/js/lib.plyr.js"></script>
+    <script src="./static/js/electron.run.js"></script>
+    <script src="./static/js/script.js"></script>
+    <script src="./static/js/plyr.js"></script>
+  </body>
+</html>

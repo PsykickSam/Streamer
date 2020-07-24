@@ -1,0 +1,27 @@
+{
+  "name": "streamer-desktop",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack-win": "electron-packager . Streamer --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Streamer\"",
+    "pack-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/mac/icon.icos --prune=true --out=release-builds",
+    "pack-linux": "electron-packager . Streamer --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/linux/icon.png --prune=true --out=release-builds"
+  },
+  "author": "sadman",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^9.0.0",
+    "express": "^4.17.1",
+    "fastify": "^2.14.1",
+    "get-port": "^5.1.1",
+    "knex": "^0.21.2",
+    "sqlite3": "^5.0.0",
+    "torrent-stream": "file:lib/torrent-stream",
+    "webtorrent": "^0.108.6"
+  },
+  "devDependencies": {
+    "electron-packager": "^14.2.1"
+  }
+}
