@@ -14,7 +14,12 @@ const { app, BrowserWindow, Menu, ipcMain } = electron;
 let window = null;
 
 // Startup
+// Create folders
 startup.createFolders();
+// Create database file, ...
+// startup.createFiles();
+// Create Database Table
+startup.createDbTables();
 logger.info("startup content is loaded");
 
 app.on("ready", () => {

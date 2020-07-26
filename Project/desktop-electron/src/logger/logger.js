@@ -5,7 +5,7 @@ module.exports = {
   error: (msg, err = null) => {
     console.log(`[ERROR] [${Date.now()}] ${msg}`);
     if (err) {
-      console.log(`[ERROR-MESSAGE]\n${err.getMessage()}\n[ERROR-MESSAGE]`);
+      console.log(`[ERROR-MESSAGE]\n${err}\n[ERROR-MESSAGE]`);
     }
   },
   test: (msg) => {

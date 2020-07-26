@@ -7,16 +7,17 @@ const playButtons = document.querySelectorAll(".btn-play");
 const deleteButtons = document.querySelectorAll(".btn-delete");
 const forwardMagnet = document.getElementById("btn-forward-magnet");
 
-const inputManget = document.getElementById("input-magnet");
+const inputMagnet = document.getElementById("input-magnet");
 
 home && home.addEventListener("click", () => ipcRenderer.send("open:home"));
 close && close.addEventListener("click", () => remote.getCurrentWindow().close());
 minimize && minimize.addEventListener("click", () => remote.getCurrentWindow().minimize());
-inputManget &&
+inputMagnet &&
   forwardMagnet &&
   forwardMagnet.addEventListener("click", () => {
+    modalMainWinMagnet.classList.remove("is-active");
     ipcRenderer.send("load:save:magnet", {
-      magnet: inputManget.value,
+      magnet: inputMagnet.value,
     });
   });
 playButtons &&

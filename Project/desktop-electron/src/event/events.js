@@ -36,13 +36,8 @@ module.exports = (ipcMain, win, server) => {
     if (win != null) {
       logger.info("Magnet: " + res.magnet);
       server.mixMagnet(res.magnet).execute((data) => {
-        db.trans_Torrents.insert(data).then((value) => {
-          console.log(value);
-          
-          db.trans_Torrents.fatch().then((value) => {
-            console.log(value);
-          });
-        });
+        db.torrents.insert(data);
+        console.log(db.torrents.fetch());
       });
     } else {
       logger.error("window is not initialized yet");

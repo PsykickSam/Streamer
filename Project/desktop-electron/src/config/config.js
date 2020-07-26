@@ -12,6 +12,16 @@ module.exports = {
       },
     },
   },
+  database: {
+    torrents: {
+      name: "torrents",
+      cols: {
+        magnet: "magnet",
+        name: "name",
+        files: "files"
+      }
+    }
+  },
   files: {
     database: path.join(app.getAppPath(), "database.sqlite")
   }

@@ -1,14 +1,16 @@
 const fs = require("fs");
-const directory = require("../config/").directory;
+const cnfDirectory = require("../config/").directory;
 const pathBinder = require("../util/").pathBinder;
 const logger = require("../logger/").logger;
 
-module.exports = () => {
-  if (!fs.existsSync(pathBinder.list(directory.downloads, directory.storage.main))) {
-    pathBinder.obj(directory.storage).forEach((path) => {
-      const createPath = pathBinder.list(directory.downloads, path);
+module.exports = (callback) => {
+  if (!fs.existsSync(pathBinder.list(cnfDirectory.downloads, cnfDirectory.storage.main))) {
+    pathBinder.obj(cnfDirectory.storage).forEach((path) => {
+      const createPath = pathBinder.list(cnfDirectory.downloads, path);
       fs.mkdirSync(createPath);
-      logger.info("Created PATH: " + createPath);
+      logger.info("Created Path: " + createPath);
     });
+
+    if (callback) callback();
   }
 };
