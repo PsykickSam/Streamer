@@ -1,6 +1,6 @@
-const cnfDatabase = require("../config/").database;
+const cnfDatabase = require("../config").database;
 const db = require("electron-db");
-const logger = require("../logger/").logger;
+const logger = require("../logger").logger;
 
 module.exports.insert = (data) => {
   const insertData = new Object();
@@ -28,13 +28,16 @@ module.exports.insert = (data) => {
 };
 
 module.exports.fetch = () => {
+  let fetched = [];
   db.getAll(cnfDatabase.torrents.name, (success, data) => {
     if (success) {
-      console.log(data);
+      fetched = data;
     } else {
       logger.error("Data fetching error!");
     }
   });
+
+  return fetched;
 };
 
 module.exports.delete = () => {

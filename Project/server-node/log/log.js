@@ -49,7 +49,6 @@ class Log {
       console.log(`[LITE] - `, msg);
     }
   }
-
 }
 
 module.exports = Log;

@@ -10,11 +10,11 @@ const getListVideos = (dispatch) => async () => {
   try {
     Log.info("Fetching from server - Videos List");
     const response = await api.get("api/video/videos");
-    Log.info("Featched from server - Videos List");
+    Log.info("Fetched from server - Videos List");
 
     Log.info("Ready to dispatch");
     dispatch({
-      type: Constants.Reducer.Video.RETRIVE_LIST_VIDEOS,
+      type: Constants.Reducer.Video.RETRIEVE_LIST_VIDEOS,
       payload: response.data,
     });
   } catch (err) {
@@ -28,11 +28,11 @@ const getVideo = (dispatch) => async (id) => {
   try {
     Log.info("Fetching from server - Video");
     const response = await api.get("api/video/" + id);
-    Log.info("Featched from server - Video");
+    Log.info("Fetched from server - Video");
 
-      Log.info("Ready to dispatch");
+    Log.info("Ready to dispatch");
     dispatch({
-      type: Constants.Reducer.Video.RETRIVE_ONE_VIDEO,
+      type: Constants.Reducer.Video.RETRIEVE_ONE_VIDEO,
       payload: response.data,
     });
   } catch (err) {

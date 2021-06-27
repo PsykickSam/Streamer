@@ -1,19 +1,21 @@
 import React from "react";
 import { Providers } from "./context/index";
-
 // Log
 import Log from "./Log";
 
 const Provider = ({ children }) => {
   Log.info("Provider initialized with 'Application Provider'");
   if (Providers !== null) {
-    return (
-      <Providers.TorrentProvider>
-        <Providers.VideoProvider>
-          <Providers.AppProvider>{children}</Providers.AppProvider>
-        </Providers.VideoProvider>
-      </Providers.TorrentProvider>
-    );
+    let MainProvider = null;
+
+    Object.values(Providers).forEach((Provider, Index) => {
+      if (Index !== 0)
+        MainProvider = <Provider>{ MainProvider }</Provider>
+      else
+        MainProvider = <Provider>{ children }</Provider>
+    });
+
+    return MainProvider;
   } else {
     return { children };
   }

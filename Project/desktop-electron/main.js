@@ -56,7 +56,9 @@ app.on("ready", () => {
   /// Window
 
   // Event
-  event.load(ipcMain, window, server);
+  window.webContents.on("did-finish-load", () => {
+    event.load(ipcMain, window, server, window.webContents);
+  });
 
   // Main menu setup
   const mainmenu = Menu.buildFromTemplate(tmplt_Mainmenu(app, window));

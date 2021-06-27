@@ -2,14 +2,11 @@ import React, { useContext, useEffect } from "react";
 import { withRouter, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Box } from "@material-ui/core";
-
 // Router Links
 import Link from "../../router/Link";
-
 // Component
-//// Video
+/// Video
 import SingleVideo from "./SingleVideo";
-
 // Context
 import { Context as VideoContext } from "../../context/VideoContext";
 
@@ -42,23 +39,31 @@ const Videos = ({ routeLinks }) => {
     getListVideos();
   }, []);
 
+  console.log("Length of the videos", videos.length);
+
   return (
     <div>
       <Box m={3}>
         <Grid container className={classes.root} justify="center">
           <Grid item xs={12}>
-            <Grid container justify="flex-start" spacing={2}>
-              {videos !== undefined
-                ? videos.length >= 0
-                  ? videos.map((video) => {
-                      return (
-                        <Grid item key={video.id} xs={3}>
-                          {videoItem(video, routeLinks)}
-                        </Grid>
-                      );
-                    })
-                  : null
-                : null}
+            <Grid
+              container
+              justify={videos.length > 0 ? "flex-start" : "center"}
+              spacing={2}
+            >
+              {videos !== undefined ? (
+                videos.length > 0 ? (
+                  videos.map((video) => {
+                    return (
+                      <Grid item key={video.id} xs={3}>
+                        {videoItem(video, routeLinks)}
+                      </Grid>
+                    );
+                  })
+                ) : (
+                  <h2>No Videos Found</h2>
+                )
+              ) : null}
             </Grid>
           </Grid>
         </Grid>

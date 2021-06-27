@@ -1,9 +1,8 @@
 const path = require("path");
 const app = require("electron").app;
-const fastify = require("fastify")({ logger: false });
+const fastify = require("fastify");
 const torrentStream = require("torrent-stream");
 const getPort = require("get-port");
-const { throws } = require("assert");
 const logger = require("../logger").logger;
 
 class Server {
@@ -14,6 +13,7 @@ class Server {
     this.engine = null;
     this.magnet = "";
     this.isServerRunning = false;
+    this.server = fastify({ logger: false });
     // magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent
   }
 
@@ -33,6 +33,7 @@ class Server {
     this.port = 9000;
     this.engine = null;
     this.isServerRunning = false;
+    this.server = null;
   }
 
   async generatePort() {
@@ -70,12 +71,21 @@ class Server {
       });
 
       this.startServer();
-      if (callback)
+      if (callback) {
+        logger.info(
+          "Saving Data:\n" +
+            this.magnet +
+            "\n" +
+            this.engine.torrent.name +
+            "\n" +
+            JSON.stringify(this.files)
+        );
         callback({
           magnet: this.magnet,
           name: this.engine.torrent.name,
           files: JSON.stringify(this.files),
         });
+      }
 
       logger.info("Files are loaded, Total files: " + this.files.length);
     });
@@ -91,36 +101,41 @@ class Server {
   }
 
   stopServer() {
-    this.isServerRunning = false;
-    fastify.close().then(
-      () => logger.info("Server closed successfully!"),
-      (err) => logger.error("Server failed to close!", err)
-    );
+    return new Promise((res, rej) => {
+      this.server
+        .close()
+        .then(() => {
+          this.isServerRunning = false;
+          logger.info("Server closed successfully!");
+          res();
+        })
+        .catch((err) => {
+          logger.info("Server is not closed! " + err.message);
+          rej();
+        });
+    });
   }
 
-  startServer() {
+  async startServer() {
     if (!this.isTrue) {
       return;
     }
 
     if (this.isServerRunning) {
-      this.stopServer();
+      return;
     }
 
-    fastify.get("/", (req, rep) => {
-      const jsonfiles = files.map((file, index) => ({ name: file.name, index }));
+    this.server.get("/", (req, rep) => {
+      const jsonFiles = this.files.map((file, index) => ({
+        name: file.name,
+        index,
+      }));
 
       rep.headers({ "Content-Type": "application/json" });
-      rep.code(200).send(JSON.stringify(jsonfiles));
+      rep.code(200).send(JSON.stringify(jsonFiles));
     });
 
-    fastify.get("/json", (req, rep) => {
-      const jsonfiles = files.map((file, index) => ({ name: file.name, index }));
-      rep.headers({ "Content-Type": "application/json" });
-      rep.code(200).send(JSON.stringify(jsonfiles));
-    });
-
-    fastify.get("/render/:fileIndex", (req, rep) => {
+    this.server.get("/render/:fileIndex", (req, rep) => {
       const file = this.files[req.params.fileIndex];
       const size = file.length;
       const range = req.headers.range || "bytes=0-";
@@ -146,7 +161,7 @@ class Server {
       });
     });
 
-    fastify.listen(this.port, (err, address) => {
+    this.server.listen(this.port, (err, address) => {
       if (err) {
         logger.error("Error on server starting!", err.message);
         return;

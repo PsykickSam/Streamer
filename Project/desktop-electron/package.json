@@ -12,6 +12,7 @@
   "author": "sadman",
   "license": "ISC",
   "dependencies": {
+    "detailed-tree-view": "^1.0.4",
     "electron": "^9.0.0",
     "electron-db": "^0.15.7",
     "express": "^4.17.1",

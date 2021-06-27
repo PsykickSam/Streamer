@@ -3,7 +3,7 @@ const path = require("path");
 const logger = require("../logger").logger;
 const db = require("../database");
 
-module.exports = (ipcMain, win, server) => {
+module.exports = (ipcMain, win, server, webContents) => {
   ipcMain.on("open:media", (event) => {
     if (win != null) {
       win.loadURL(
@@ -57,4 +57,9 @@ module.exports = (ipcMain, win, server) => {
       logger.error("window is not initialized yet");
     }
   });
+
+  webContents.send("load:fetch:torrents", {
+    torrents: db.torrents.fetch(),
+  });
+
 };

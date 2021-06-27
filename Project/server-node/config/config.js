@@ -18,6 +18,36 @@ class Config {
       },
       structure: {
         model: {
+          audios: {
+            _name: "audios",
+            _fields: {
+              title: String,
+              name: String,
+              channel: String,
+              views: String,
+              user: String,
+              audio_dir: String,
+              audio_link: String,
+              thumbnail_dir: String,
+              thumbnail_link: String,
+              thumbnail_buffer: String,
+              description: String,
+              show: Boolean,
+              upload_at: String,
+              updated_at: Date,
+              created_at: Date,
+            },
+            _api: {
+              id: String,
+              title: String,
+              channel: String,
+              views: String,
+              user: String,
+              audio: String,
+              thumbnail: String,
+              uploaded: String,
+            }
+          },
           videos: {
             _name: "videos",
             _fields: {
@@ -70,18 +100,18 @@ class Config {
             },
           },
         },
-        retrive_fields: (name) => {
+        retrieve_fields: (name) => {
           const model = this.database().structure.model;
-          let mkey = "";
+          let mKey = "";
 
           Object.keys(model).forEach((key) => {
             if (key === name) {
-              mkey = key;
+              mKey = key;
               return;
             }
           });
 
-          return mkey === "" ? null : model[mkey]._fields;
+          return mKey === "" ? null : model[mKey]._fields;
         },
       },
       bind: {
@@ -95,7 +125,7 @@ class Config {
             videos.forEach((video) => {
               const api = this.database().structure.model.videos._api;
 
-              api.id = video.id; // TODO: Encryprt the id for url
+              api.id = video.id; // TODO: Encrypt the id for url
               api.title = video.title;
               api.channel = video.channel;
               api.views = video.views;
@@ -119,7 +149,7 @@ class Config {
             torrents.forEach((torrent) => {
               const api = this.database().structure.model.torrents._api;
 
-              api.id = torrent.id; // TODO: Encryprt the id for url
+              api.id = torrent.id; // TODO: Encrypt the id for url
               api.magnet = torrent.magnet;
               api.hash = torrent.hash;
               api.name = torrent.name;
@@ -155,7 +185,7 @@ class Config {
         2160: { p: 2160, w: 3840, h: 2160, bandwidth: 15000000 }, // 2160p / 4k // Update
         4320: { p: 4320, w: 7680, h: 4320, bandwidth: 30000000 }, // 4320p / 8k // Update
       },
-      retrive_vid_resolutions: (progressiveScan) => {
+      retrieve_vid_resolutions: (progressiveScan) => {
         const resolutions = this.media().resolutions;
         const resolutions_list = [];
         const keys = Object.keys(resolutions);

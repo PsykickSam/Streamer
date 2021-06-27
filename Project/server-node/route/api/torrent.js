@@ -6,6 +6,7 @@ const {
   rimraf,
   parseTorrent,
   fs,
+  shelljs,
   object: { WebTorrent },
 } = require("../../required");
 const { db } = require("../../required.depend");
@@ -15,6 +16,7 @@ const status = { progress: 0, speed: 0, ratio: 0 };
 const error = { message: "" };
 
 const webtorrent = new WebTorrent();
+let currentMagnet = "";
 
 // Functions
 const timeControl = {
@@ -37,7 +39,9 @@ const webtorrentEventLoader = () => {
     status.speed = webtorrent.downloadSpeed;
     status.ratio = webtorrent.ratio;
 
-    log.download(`Torrent - Progress: ${status.progress}, Speed: ${status.speed}, Ratio: ${status.ratio}`);
+    log.download(
+      `Torrent - Progress: ${status.progress}, Speed: ${status.speed}, Ratio: ${status.ratio}`
+    );
   });
 };
 
@@ -59,10 +63,16 @@ router.post("/torrent/show", (req, res) => {
   const magnet_uri = req.body.magnet_uri;
   const magnet_hash = parseTorrent(magnet_uri).infoHash;
   const holder = { isDownloadable: true };
-  const temp_dir = helper.functionHelper.path_binder(locations.torrent.string, locations.temp.source);
+  const temp_dir = helper.functionHelper.path_binder(
+    locations.torrent.string,
+    locations.temp.source
+  );
   const delete_dir = helper.functionHelper.path_binder(
     locations.torrent.string,
-    locations.torrent.torrents + "User/" + locations.torrent.downloads + magnet_hash
+    locations.torrent.torrents +
+      "User/" +
+      locations.torrent.downloads +
+      magnet_hash
   );
 
   // error check
@@ -70,7 +80,13 @@ router.post("/torrent/show", (req, res) => {
     log.info("API: Magnet Uri is undefined or null");
 
     const message = "Problem in (MagnetURL) & (...)";
-    const json = fh_api.generate({}, message, true, fh_api.status.FAILED, fh_api.code.c500);
+    const json = fh_api.generate(
+      {},
+      message,
+      true,
+      fh_api.status.FAILED,
+      fh_api.code.c500
+    );
 
     res.json(json);
     return;
@@ -97,8 +113,15 @@ router.post("/torrent/show", (req, res) => {
     holder.isDownloadable = false;
 
     log.info("Torrent is not downloadable");
-    const message = "Failed to load torrent files! Torrent is not downloadable.";
-    const json = fh_api.generate({}, message, true, fh_api.status.FAILED, fh_api.code.c500);
+    const message =
+      "Failed to load torrent files! Torrent is not downloadable.";
+    const json = fh_api.generate(
+      {},
+      message,
+      true,
+      fh_api.status.FAILED,
+      fh_api.code.c500
+    );
 
     webtorrent.remove(magnet_uri);
     res.json(json);
@@ -115,7 +138,9 @@ router.post("/torrent/show", (req, res) => {
       log.info("Saved torrent - Name: " + torrent.name);
 
       torrent.files.find((file) => {
-        const id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const id =
+          Math.random().toString(36).substring(2, 15) +
+          Math.random().toString(36).substring(2, 15);
         files.push({
           id,
           name: file.name,
@@ -128,11 +153,24 @@ router.post("/torrent/show", (req, res) => {
       webtorrent.remove(magnet_uri);
 
       // TODO: Update 'User' with authenticated user
-      const saved = await db.torrent.save(magnet_uri, torrent.name, files, torrent.infoHash, "User");
+      const saved = await db.torrent.save(
+        magnet_uri,
+        torrent.name,
+        files,
+        torrent.infoHash,
+        "User"
+      );
       const apiTorrent = config.database().bind.api.torrent(saved);
       const message = "Torrent files are loaded successfully.";
-      const json = fh_api.generate({ torrent: apiTorrent }, message, false, fh_api.status.PASSED, fh_api.code.c200);
+      const json = fh_api.generate(
+        { torrent: apiTorrent },
+        message,
+        false,
+        fh_api.status.PASSED,
+        fh_api.code.c200
+      );
 
+      currentMagnet = magnet_uri;
       res.json(json);
     } else {
       log.info("Torrent is not downloadable, It is cancelled previously");
@@ -165,7 +203,8 @@ router.post("/torrent/attach", async (req, res) => {
   }
 
   if (!fs.existsSync(download_dir)) {
-    fs.mkdirSync(download_dir);
+    shelljs.mkdir("-p", download_dir);
+    log.info("Magnet Hash folder is created.");
   }
 
   log.info(`Magnet Hash: ${magnet_hash}`);
@@ -175,8 +214,15 @@ router.post("/torrent/attach", async (req, res) => {
     timeControl.off(timer);
 
     log.info("Torrent is not downloadable due to 'Network Speed' or 'Others'");
-    const message = "Torrent attached but due to 'Network Speed' or 'Other' problems.";
-    const json = fh_api.generate({}, message, true, fh_api.status.FAILED, fh_api.code.c500);
+    const message =
+      "Torrent attached but due to 'Network Speed' or 'Other' problems.";
+    const json = fh_api.generate(
+      {},
+      message,
+      true,
+      fh_api.status.FAILED,
+      fh_api.code.c500
+    );
 
     webtorrent.remove(magnet_uri);
     res.json(json);
@@ -192,7 +238,13 @@ router.post("/torrent/attach", async (req, res) => {
     log.info("WEBTORRENT - Downloading - Retrived Hash: " + torrent.infoHash);
 
     const message = "Torrent is attached successfully, Now it is downloading.";
-    const json = fh_api.generate({}, message, false, fh_api.status.PASSED, fh_api.code.c200);
+    const json = fh_api.generate(
+      {},
+      message,
+      false,
+      fh_api.status.PASSED,
+      fh_api.code.c200
+    );
 
     res.json(json);
   });
@@ -213,7 +265,13 @@ router.delete("/torrent/detach/:magnet_hash", async (req, res, next) => {
   const torrent = webtorrent.get(magnet_hash);
   if (torrent === null) {
     const message = "This torrent magnet is not available";
-    const json = fh_api.generate({}, message, true, fh_api.status.FAILED, fh_api.code.c500);
+    const json = fh_api.generate(
+      {},
+      message,
+      true,
+      fh_api.status.FAILED,
+      fh_api.code.c500
+    );
     res.json(json);
     return;
   }
@@ -224,7 +282,13 @@ router.delete("/torrent/detach/:magnet_hash", async (req, res, next) => {
 
   webtorrent.remove(magnet_hash);
   const message = "Torrent magent is detached successfully";
-  const json = fh_api.generate({}, message, false, fh_api.status.PASSED, fh_api.code.c200);
+  const json = fh_api.generate(
+    {},
+    message,
+    false,
+    fh_api.status.PASSED,
+    fh_api.code.c200
+  );
   res.json(json);
 });
 
@@ -239,14 +303,20 @@ router.get("/torrent/render/:index/:magnet_hash", async (req, res, next) => {
 
   const { magnet_hash, index } = req.params; // 'index' is file index, 'magnet_hash' is magnet uri hash
   const range = req.headers.range;
-  const torrent = webtorrent.get(magnet_hash);
+  const torrent = webtorrent.get(currentMagnet || magnet_hash);
   const fh_api = helper.functionHelper.api();
 
-  // check for torrent existance
+  // check for torrent existence
   if (torrent === null || torrent === undefined) {
     log.info("Torrent of current magnet is not available");
     const message = "Torrent of current magnet is not available";
-    const json = fh_api.generate({}, message, true, fh_api.status.FAILED, fh_api.code.c500);
+    const json = fh_api.generate(
+      {},
+      message,
+      true,
+      fh_api.status.FAILED,
+      fh_api.code.c500
+    );
     res.json(json);
     return;
   }
@@ -256,10 +326,20 @@ router.get("/torrent/render/:index/:magnet_hash", async (req, res, next) => {
 
   // check for video file
   log.info("Torrent - File type checking");
-  if (!["mp4", "avi", "mkv", "webm", "mp3"].includes(file.name.split(".").slice(-1).pop())) {
+  if (
+    !["mp4", "avi", "mkv", "webm", "mp3"].includes(
+      file.name.split(".").slice(-1).pop()
+    )
+  ) {
     log.info("Torrent - File type is not streamable");
     const message = "This file no a media file to play";
-    const json = fh_api.generate({}, message, true, fh_api.status.FAILED, fh_api.code.c500);
+    const json = fh_api.generate(
+      {},
+      message,
+      true,
+      fh_api.status.FAILED,
+      fh_api.code.c500
+    );
     res.json(json);
     return;
   }

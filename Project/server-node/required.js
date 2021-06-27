@@ -12,6 +12,7 @@ const crypto = require("crypto");
 const rimraf = require("rimraf");
 const bodyParser = require("body-parser");
 const parseTorrent = require("parse-torrent");
+const shelljs = require("shelljs");
 
 const ThumbnailGenerator = require("video-thumbnail-generator").default;
 const WebTorrent = require("webtorrent");
@@ -46,6 +47,7 @@ module.exports = {
   async,
   crypto,
   rimraf,
+  shelljs,
   bodyParser,
   parseTorrent,
   object: {

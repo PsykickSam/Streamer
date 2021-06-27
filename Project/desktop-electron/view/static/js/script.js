@@ -19,7 +19,7 @@ const treeNodeChilds = document.querySelectorAll(".tree-node-child");
 // Events
 userTorrent &&
   userTorrent.addEventListener("click", (event) => {
-    content.classList.toggle("content-sqeeze");
+    content.classList.toggle("content-squeeze");
     sidebar.classList.toggle("sidebar-show");
   });
 

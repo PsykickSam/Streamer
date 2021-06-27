@@ -1,6 +1,10 @@
 # Streamer
 
-Video, Torrent, Audio streaming application. This application has features like video uploading and streaming, torrent video and audio downloading and streaming and music streaming. 
+Video, Torrent, Audio streaming application. This application has features like video uploading and streaming, torrent video and audio downloading and streaming and music streaming.
+
+## Status
+
+* #### Currently fixing bugs and updating features [Some features may not work correctly]
 
 ## Features
 
@@ -24,7 +28,7 @@ This is some main libraries or packages used for this app, Cradits goes to all t
 * HLS-Server
 * Video-Thumbnail-generator
 * Webtorrent
-* Async 
+* Async
 * Express
 * Fluent-FFMPEG
 
@@ -117,5 +121,3 @@ Currently facing issues, will be fixed in future
 
 * #### **buf length isn't multiple of compact IP/PORTs (6 bytes)**
 This error is occuring while downloading torrent file, the fix is not fixed yet
-
-

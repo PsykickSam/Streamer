@@ -1,3 +1,3 @@
-const torrents = require("./transactions.torrents");
+const torrents = require("./db.torrents");
 
 module.exports = { torrents };

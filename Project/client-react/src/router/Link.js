@@ -41,12 +41,12 @@ Link.Upload = () => (
   </ReactLink>
 );
 Link.SignUp = () => (
-  <ReactLink to={routerLinks.home.home.link} style={{ textDecoration: "none" }}>
+  <ReactLink to={routerLinks.auth.signup.link} style={{ textDecoration: "none" }}>
     <Button>SignUp</Button>
   </ReactLink>
 );
 Link.SignIn = () => (
-  <ReactLink to={routerLinks.home.home.link} style={{ textDecoration: "none" }}>
+  <ReactLink to={routerLinks.auth.signin.link} style={{ textDecoration: "none" }}>
     <Button>SignIn</Button>
   </ReactLink>
 );
