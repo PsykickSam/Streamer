@@ -122,4 +122,4 @@ Currently facing issues, will be fixed in future
 * #### **buf length isn't multiple of compact IP/PORTs (6 bytes)**
 This error is occuring while downloading torrent file, the fix is not fixed yet
 
-#### SadmanDMCX - © - 2020
+#### MD Sadman - © - 2020
